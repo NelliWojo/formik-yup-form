@@ -1,4 +1,5 @@
 import { FormikHelpers, useFormik } from "formik";
+import { basicSchema } from "../schemas/validation";
 
 interface FormValues {
   email: string;
@@ -8,13 +9,14 @@ interface FormValues {
 }
 
 export default function BasicForm() {
-  const {values, handleChange, handleBlur} = useFormik<FormValues>({
+  const { values, handleChange, handleBlur } = useFormik<FormValues>({
     initialValues: {
       email: "",
       age: 0,
       password: "",
       confirmPassword: "",
     },
+    validationSchema: basicSchema,
     onSubmit: (
       values: FormValues,
       { setSubmitting }: FormikHelpers<FormValues>
@@ -23,7 +25,7 @@ export default function BasicForm() {
       setSubmitting(false);
     },
   });
-    console.log(values)
+  console.log(values);
 
   return (
     <form autoComplete="off">
