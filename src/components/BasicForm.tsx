@@ -48,7 +48,7 @@ export default function BasicForm() {
       <label htmlFor="password">Password</label>
       <input
         id="password"
-        type="paswword"
+        type="password"
         placeholder="Enter your password"
         value={values.password}
         onChange={handleChange}
