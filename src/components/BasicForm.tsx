@@ -8,24 +8,36 @@ interface FormValues {
   confirmPassword: string;
 }
 
+const onSubmit = async (
+  values: FormValues,
+  { setSubmitting, resetForm }: FormikHelpers<FormValues>
+) => {
+  setSubmitting(true);
+  console.log("submitted", values);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  setSubmitting(false);
+  resetForm();
+};
+
 export default function BasicForm() {
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
-    useFormik<FormValues>({
-      initialValues: {
-        email: "",
-        age: 0,
-        password: "",
-        confirmPassword: "",
-      },
-      validationSchema: basicSchema,
-      onSubmit: (
-        values: FormValues,
-        { setSubmitting }: FormikHelpers<FormValues>
-      ) => {
-        console.log("submitted", values);
-        setSubmitting(false);
-      },
-    });
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    isSubmitting,
+  } = useFormik<FormValues>({
+    initialValues: {
+      email: "",
+      age: 0,
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: basicSchema,
+    onSubmit,
+  });
 
   console.log(values);
   console.log(errors);
@@ -71,7 +83,7 @@ export default function BasicForm() {
       {errors.password && touched.password && (
         <p className="text-red-500 text-sm">{errors.password}</p>
       )}
-      <label htmlFor="confirmPassword">Password</label>
+      <label htmlFor="confirmPassword">Confirm Password</label>
       <input
         id="confirmPassword"
         type="password"
@@ -86,7 +98,13 @@ export default function BasicForm() {
       {errors.confirmPassword && touched.confirmPassword && (
         <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
       )}
-      <button type="submit">Submit</button>
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className={isSubmitting ? "bg-green-500" : ""}
+      >
+        {isSubmitting ? "Submitting..." : "Submit"}
+      </button>
     </form>
   );
 }
