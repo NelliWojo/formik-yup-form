@@ -9,26 +9,29 @@ interface FormValues {
 }
 
 export default function BasicForm() {
-  const { values, handleChange, handleBlur } = useFormik<FormValues>({
-    initialValues: {
-      email: "",
-      age: 0,
-      password: "",
-      confirmPassword: "",
-    },
-    validationSchema: basicSchema,
-    onSubmit: (
-      values: FormValues,
-      { setSubmitting }: FormikHelpers<FormValues>
-    ) => {
-      console.log(values);
-      setSubmitting(false);
-    },
-  });
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useFormik<FormValues>({
+      initialValues: {
+        email: "",
+        age: 0,
+        password: "",
+        confirmPassword: "",
+      },
+      validationSchema: basicSchema,
+      onSubmit: (
+        values: FormValues,
+        { setSubmitting }: FormikHelpers<FormValues>
+      ) => {
+        console.log("submitted", values);
+        setSubmitting(false);
+      },
+    });
+
   console.log(values);
+  console.log(errors);
 
   return (
-    <form autoComplete="off">
+    <form onSubmit={handleSubmit} autoComplete="off">
       <label htmlFor="email">Email</label>
       <input
         id="email"
@@ -37,6 +40,7 @@ export default function BasicForm() {
         value={values.email}
         onChange={handleChange}
         onBlur={handleBlur}
+        className={errors.email && touched.email ? "bg-red-500" : ""}
       />
       <label htmlFor="age">Age</label>
       <input
@@ -46,6 +50,7 @@ export default function BasicForm() {
         value={values.age}
         onChange={handleChange}
         onBlur={handleBlur}
+        className={errors.age && touched.age ? "bg-red-500" : ""}
       />
       <label htmlFor="password">Password</label>
       <input
@@ -55,6 +60,19 @@ export default function BasicForm() {
         value={values.password}
         onChange={handleChange}
         onBlur={handleBlur}
+        className={errors.password && touched.password ? "bg-red-500" : ""}
+      />
+      <label htmlFor="confirmPassword">Password</label>
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirm your password"
+        value={values.confirmPassword}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        className={
+          errors.confirmPassword && touched.confirmPassword ? "bg-red-500" : ""
+        }
       />
       <button type="submit">Submit</button>
     </form>
