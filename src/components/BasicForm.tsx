@@ -42,6 +42,9 @@ export default function BasicForm() {
         onBlur={handleBlur}
         className={errors.email && touched.email ? "bg-red-500" : ""}
       />
+      {errors.email && touched.email && (
+        <p className="text-red-500 text-sm">{errors.email}</p>
+      )}
       <label htmlFor="age">Age</label>
       <input
         id="age"
@@ -52,6 +55,9 @@ export default function BasicForm() {
         onBlur={handleBlur}
         className={errors.age && touched.age ? "bg-red-500" : ""}
       />
+      {errors.age && touched.age && (
+        <p className="text-red-500 text-sm">{errors.age}</p>
+      )}
       <label htmlFor="password">Password</label>
       <input
         id="password"
@@ -62,6 +68,9 @@ export default function BasicForm() {
         onBlur={handleBlur}
         className={errors.password && touched.password ? "bg-red-500" : ""}
       />
+      {errors.password && touched.password && (
+        <p className="text-red-500 text-sm">{errors.password}</p>
+      )}
       <label htmlFor="confirmPassword">Password</label>
       <input
         id="confirmPassword"
@@ -74,6 +83,9 @@ export default function BasicForm() {
           errors.confirmPassword && touched.confirmPassword ? "bg-red-500" : ""
         }
       />
+      {errors.confirmPassword && touched.confirmPassword && (
+        <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+      )}
       <button type="submit">Submit</button>
     </form>
   );
