@@ -1,16 +1,24 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import CustomInput from "./CustomInput";
+import { advancedSchema } from "../schemas/validation";
 
 interface FormValues {
   username: string;
   email: string;
-  password: string;
+  jobType: string;
+  acceptedTos: boolean;
 }
 
 export default function AdvancedForm() {
   return (
     <Formik
-      initialValues={{ username: "", email: "", password: "" }}
+      initialValues={{
+        username: "",
+        email: "",
+        jobType: "",
+        acceptedTos: false,
+      }}
+      validationSchema={advancedSchema}
       validate={(values: FormValues) => {
         const errors: Partial<FormValues> = {};
         if (!values.email) {
@@ -37,12 +45,8 @@ export default function AdvancedForm() {
             type="text"
             placeholder="Enter your username"
           />
-          <Field type="text" name="name" placeholder="Name" />
-          <ErrorMessage name="email" component="div" />
           <Field type="email" name="email" placeholder="Email" />
           <ErrorMessage name="email" component="div" />
-          <Field type="password" name="password" placeholder="Password" />
-          <ErrorMessage name="password" component="div" />
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
