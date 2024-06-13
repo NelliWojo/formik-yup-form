@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik, FormikHelpers } from "formik";
 import CustomInput from "./CustomInput";
 import { advancedSchema } from "../schemas/validation";
 import CustomSelect from "./CustomSelect";
@@ -10,6 +10,17 @@ interface FormValues {
   jobType: string;
   acceptedTos: boolean;
 }
+
+const handleSubmit = async (
+  values: FormValues,
+  { setSubmitting, resetForm }: FormikHelpers<FormValues>
+) => {
+  setSubmitting(true);
+  console.log("submitted", values);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  setSubmitting(false);
+  resetForm();
+};
 
 export default function AdvancedForm() {
   return (
@@ -32,12 +43,13 @@ export default function AdvancedForm() {
         }
         return errors;
       }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
+      onSubmit={handleSubmit}
+      //   onSubmit={(values, { setSubmitting }) => {
+      //     setTimeout(() => {
+      //       alert(JSON.stringify(values, null, 2));
+      //       setSubmitting(false);
+      //     }, 400);
+      //   }}
     >
       {({ isSubmitting }) => (
         <Form>
@@ -59,7 +71,11 @@ export default function AdvancedForm() {
           <CustomCheckbox type="checkbox" name="acceptedTos" />
 
           <Field type="email" name="email" placeholder="Email" />
-          <ErrorMessage name="email" component="div" />
+          <ErrorMessage
+            name="email"
+            component="div"
+            className="text-red-500 text-sm"
+          />
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
