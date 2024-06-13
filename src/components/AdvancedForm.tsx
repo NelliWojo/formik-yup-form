@@ -76,8 +76,12 @@ export default function AdvancedForm() {
             component="div"
             className="text-red-500 text-sm"
           />
-          <button type="submit" disabled={isSubmitting}>
-            Submit
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={isSubmitting ? "bg-green-500" : ""}
+          >
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </Form>
       )}
