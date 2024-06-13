@@ -1,7 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import CustomInput from "./CustomInput";
 
 interface FormValues {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -9,7 +10,7 @@ interface FormValues {
 export default function AdvancedForm() {
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "" }}
+      initialValues={{ username: "", email: "", password: "" }}
       validate={(values: FormValues) => {
         const errors: Partial<FormValues> = {};
         if (!values.email) {
@@ -30,6 +31,12 @@ export default function AdvancedForm() {
     >
       {({ isSubmitting }) => (
         <Form>
+          <CustomInput
+            label="Username"
+            name="username"
+            type="text"
+            placeholder="Enter your username"
+          />
           <Field type="text" name="name" placeholder="Name" />
           <ErrorMessage name="email" component="div" />
           <Field type="email" name="email" placeholder="Email" />
