@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 
 interface FormValues {
+  name: string;
   email: string;
   password: string;
 }
@@ -8,7 +9,7 @@ interface FormValues {
 export default function AdvancedForm() {
   return (
     <Formik
-      initialValues={{ email: "", password: "" }}
+      initialValues={{ name: "", email: "", password: "" }}
       validate={(values: FormValues) => {
         const errors: Partial<FormValues> = {};
         if (!values.email) {
@@ -29,9 +30,11 @@ export default function AdvancedForm() {
     >
       {({ isSubmitting }) => (
         <Form>
-          <Field type="email" name="email" />
+          <Field type="text" name="name" placeholder="Name" />
           <ErrorMessage name="email" component="div" />
-          <Field type="password" name="password" />
+          <Field type="email" name="email" placeholder="Email" />
+          <ErrorMessage name="email" component="div" />
+          <Field type="password" name="password" placeholder="Password" />
           <ErrorMessage name="password" component="div" />
           <button type="submit" disabled={isSubmitting}>
             Submit
