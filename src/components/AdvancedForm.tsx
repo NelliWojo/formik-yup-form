@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import CustomInput from "./CustomInput";
 import { advancedSchema } from "../schemas/validation";
+import CustomSelect from "./CustomSelect";
 
 interface FormValues {
   username: string;
@@ -45,6 +46,16 @@ export default function AdvancedForm() {
             type="text"
             placeholder="Enter your username"
           />
+          <CustomSelect label="Job Type" name="jobType">
+            <option value="" disabled>
+              Please select a job type
+            </option>
+            <option value="developer">Developer</option>
+            <option value="designer">Designer</option>
+            <option value="manager">Manager</option>
+            <option value="other">Other</option>
+          </CustomSelect>
+
           <Field type="email" name="email" placeholder="Email" />
           <ErrorMessage name="email" component="div" />
           <button type="submit" disabled={isSubmitting}>
