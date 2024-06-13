@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import CustomInput from "./CustomInput";
 import { advancedSchema } from "../schemas/validation";
 import CustomSelect from "./CustomSelect";
+import CustomCheckbox from "./CustomCheckbox";
 
 interface FormValues {
   username: string;
@@ -55,6 +56,7 @@ export default function AdvancedForm() {
             <option value="manager">Manager</option>
             <option value="other">Other</option>
           </CustomSelect>
+          <CustomCheckbox type="checkbox" name="acceptedTos" />
 
           <Field type="email" name="email" placeholder="Email" />
           <ErrorMessage name="email" component="div" />
